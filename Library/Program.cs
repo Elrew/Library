@@ -24,15 +24,19 @@ class Program
             switch (option)
             {
                 case "1":
+                    Console.Clear();
                     AddBook(library);
                     break;
                 case "2":
+                    Console.Clear();
                     UpdateBook(library);
                     break;
                 case "3":
+                    Console.Clear();
                     DeleteBook(library);
                     break;
                 case "4":
+                    Console.Clear();
                     ListBooks(library);
                     break;
                 case "5":
@@ -47,8 +51,8 @@ class Program
 
     static void AddBook(List<Book> library)
     {
-        Console.WriteLine("\n Please enter the book Title:");
-        string titleInput =Console.ReadLine();
+        Console.WriteLine("\nPlease enter the book Title:");
+        string titleInput = Console.ReadLine();
         Book newBook = new Book();
 
         Console.WriteLine("Please enter the book Author:");
@@ -77,11 +81,11 @@ class Program
 
         Console.WriteLine("\n" +
             newBook.Title + "\n" +
-            newBook.Author + "\n" + 
+            newBook.Author + "\n" +
             newBook.Genre + "\n" +
             newBook.Year + "\n" +
             newBook.ISBN + "\n" +
-            newBook.Description + "\n" );
+            newBook.Description + "\n");
 
 
     }
@@ -103,11 +107,16 @@ class Program
 
     static void ListBooks(List<Book> library)
     {
-        if (library.Count == 0) {
+
+        if (library.Count == 0)
+        {
             Console.WriteLine("The library does not currently have any books in it.");
         }
-        else {
-            foreach (Book book in library) {
+        else
+        {
+            foreach (Book book in library)
+            {
+
                 Console.WriteLine("\n Title: " + book.Title);
                 Console.WriteLine("Author: " + book.Author);
                 Console.WriteLine("Genre: " + book.Genre);
@@ -117,7 +126,7 @@ class Program
                 Console.WriteLine();
 
             }
-        
+
         }
     }
 }
