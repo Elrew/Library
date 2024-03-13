@@ -92,9 +92,17 @@ class Program
 
     static void UpdateBook(List<Book> library)
     {
-        Console.WriteLine(ListBooks);
-        Console.WriteLine("Which book would you like to edit?:");
-        // Need to add a way for the program to list just the titles of the books. 
+        // Used to add an int to the front of the book name for better distinction
+        int count = 1;
+        // Prints titles with a number before. 
+        foreach (Book book in library) 
+        {
+            Console.WriteLine($"{count}:" + book.Title);
+            count++;
+
+        }
+        
+        Console.WriteLine("Which book would you like to edit?:"); 
 
         string userBookEdit = Console.ReadLine();
 
