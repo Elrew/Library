@@ -1,10 +1,21 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+
+
 
 class Program
 {
     static void Main(string[] args)
     {
+
+       // Check if saved file exists with try/catch
+       // Read json file and dump it to a string.
+       // Deserialize JSON string
+       //assign the list to library variable
+
 
         var library = new List<Book>();
         bool running = true;
@@ -49,6 +60,14 @@ class Program
         }
     }
 
+
+    static void SaveLibraryToFile(List<Book> library)
+    {
+        string json = JsonConvert.SerializeObject(library);
+        File.WriteAllText($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json", json);
+    }
+
+
     static void AddBook(List<Book> library)
     {
         Console.WriteLine("\nPlease enter the book Title:");
@@ -87,8 +106,11 @@ class Program
             newBook.ISBN + "\n" +
             newBook.Description + "\n");
 
-
+        SaveLibraryToFile(library);
     }
+
+
+
 
     static void UpdateBook(List<Book> library)
     {
@@ -137,9 +159,17 @@ class Program
 
         }
     }
+
+
 }
 
-class Book
+
+
+
+// Creates the string that will store the object for saving locally
+
+[Serializable]
+public class Book
 {
     public string Title { get; set; }
     public string Author { get; set; }
@@ -150,3 +180,4 @@ class Book
 
     // Other properties and methods
 }
+
