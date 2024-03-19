@@ -11,21 +11,14 @@ class Program
     static void Main(string[] args)
     {
 
-        // Check if saved file exists
-        if ($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json") {
-            var library = new List<Book>();
-        }
-
-       // Read json file and dump it to a string.
-       // Deserialize JSON string
-       //assign the list to library variable
-
-
+        
         var library = new List<Book>();
         bool running = true;
+        LoadLibraryFromFile(library);
 
         while (running)
         {
+
             Console.WriteLine("Library Management System");
             Console.WriteLine("1. Add Book");
             Console.WriteLine("2. Update Book");
@@ -64,8 +57,25 @@ class Program
         }
     }
 
+    // Checks to see if the saved library file exists, and if so, loads it in. 
+    static void LoadLibraryFromFile(List<Book> library) {
+    
+        // Create filepath variable to be used in if statement
+        string filePath = $"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json";
+        // Check if saved file exists
+        if (File.Exists($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json"))
+        {
+            // Reads all the data in the save file and loads it in as a string. 
+            string jsonFile = File.ReadAllText(filePath);
+            // Deserialize the the string var into the loaded library variable and back into a list
+            List<Book> loadedLibrary = JsonConvert.DeserializeObject<List<Book>>(jsonFile);
+            // Appends list to library
+            // NOTE: Need to check if this continues to do this and keeps adding on more and more with each load. 
+            library.AddRange(loadedLibrary);
 
-    static void LoadLibraryFromFile() { }
+        }
+
+    }
 
 
     static void SaveLibraryToFile(List<Book> library)
@@ -124,14 +134,14 @@ class Program
         // Used to add an int to the front of the book name for better distinction
         int count = 1;
         // Prints titles with a number before. 
-        foreach (Book book in library) 
+        foreach (Book book in library)
         {
             Console.WriteLine($"{count}:" + book.Title);
             count++;
 
         }
-        
-        Console.WriteLine("Which book would you like to edit?:"); 
+
+        Console.WriteLine("Which book would you like to edit?:");
 
         string userBookEdit = Console.ReadLine();
 
@@ -154,7 +164,7 @@ class Program
             foreach (Book book in library)
             {
 
-                Console.WriteLine("\n Title: " + book.Title);
+                Console.WriteLine("\nTitle: " + book.Title);
                 Console.WriteLine("Author: " + book.Author);
                 Console.WriteLine("Genre: " + book.Genre);
                 Console.WriteLine("Year: " + book.Year);
