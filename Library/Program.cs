@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 
 
@@ -10,17 +8,6 @@ class Program
 {
     static void Main(string[] args)
     {
-
-        // Check if saved file exists
-        if ($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json")
-        {
-            var library = new List<Book>();
-        }
-
-        // Read json file and dump it to a string.
-        // Deserialize JSON string
-        //assign the list to library variable
-
 
         var library = new List<Book>();
         bool running = true;
@@ -65,17 +52,6 @@ class Program
         }
     }
 
-
-    static void LoadLibraryFromFile() { }
-
-
-    static void SaveLibraryToFile(List<Book> library)
-    {
-        string json = JsonConvert.SerializeObject(library);
-        File.WriteAllText($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json", json);
-    }
-
-
     static void AddBook(List<Book> library)
     {
         Console.WriteLine("\nPlease enter the book Title:");
@@ -114,8 +90,7 @@ class Program
             newBook.ISBN + "\n" +
             newBook.Description + "\n");
 
-        SaveLibraryToFile(library);
-    }
+
 
 
 
