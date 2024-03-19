@@ -1,10 +1,26 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+
+
 
 class Program
 {
     static void Main(string[] args)
     {
+
+        // Check if saved file exists
+        if ($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json")
+        {
+            var library = new List<Book>();
+        }
+
+        // Read json file and dump it to a string.
+        // Deserialize JSON string
+        //assign the list to library variable
+
 
         var library = new List<Book>();
         bool running = true;
@@ -49,6 +65,17 @@ class Program
         }
     }
 
+
+    static void LoadLibraryFromFile() { }
+
+
+    static void SaveLibraryToFile(List<Book> library)
+    {
+        string json = JsonConvert.SerializeObject(library);
+        File.WriteAllText($"C:\\Users\\{Environment.UserName}\\SeeSharpLibrary.json", json);
+    }
+
+
     static void AddBook(List<Book> library)
     {
         Console.WriteLine("\nPlease enter the book Title:");
@@ -87,22 +114,25 @@ class Program
             newBook.ISBN + "\n" +
             newBook.Description + "\n");
 
-
+        SaveLibraryToFile(library);
     }
+
+
+
 
     static void UpdateBook(List<Book> library)
     {
         // Used to add an int to the front of the book name for better distinction
         int count = 1;
         // Prints titles with a number before. 
-        foreach (Book book in library) 
+        foreach (Book book in library)
         {
             Console.WriteLine($"{count}:" + book.Title);
             count++;
 
         }
-        
-        Console.WriteLine("Which book would you like to edit?:"); 
+
+        Console.WriteLine("Which book would you like to edit?:");
 
         string userBookEdit = Console.ReadLine();
 
@@ -137,9 +167,17 @@ class Program
 
         }
     }
+
+
 }
 
-class Book
+
+
+
+// Creates the string that will store the object for saving locally
+
+[Serializable]
+public class Book
 {
     public string Title { get; set; }
     public string Author { get; set; }
@@ -150,3 +188,4 @@ class Book
 
     // Other properties and methods
 }
+
